@@ -26,8 +26,11 @@ public class GameJFrame extends JFrame implements KeyListener , ActionListener {
     JMenuItem replayItem=new JMenuItem("重新开始");
     JMenuItem reLoginItem=new JMenuItem("重新登录");
     JMenuItem closeItem=new JMenuItem("关闭游戏");
-
+    JMenu selectItem=new JMenu("更换图片");
     JMenuItem accountItem=new JMenuItem("客服");
+    //JMenuItem select1=new JMenuItem("美女");
+    JMenuItem select2=new JMenuItem("动物");
+    JMenuItem select3=new JMenuItem("运动");
     //记录路径
     String path="image\\animal\\animal9\\";
     public GameJFrame(){
@@ -110,12 +113,21 @@ public class GameJFrame extends JFrame implements KeyListener , ActionListener {
         functionJMenu.add(replayItem);
         functionJMenu.add(reLoginItem);
         functionJMenu.add(closeItem);
+        functionJMenu.add(selectItem);
         aboutJMenu.add(accountItem);
         //给条目绑定事件
         replayItem.addActionListener(this);
         reLoginItem.addActionListener(this);
         closeItem.addActionListener(this);
-        accountItem.addActionListener(this);
+        accountItem.addActionListener (this);
+       //条目之下再绑定功能
+        //selectItem.add(select1);
+        selectItem.add(select2);
+        selectItem.add(select3);
+        //绑定事件
+        //select1.addActionListener(this);
+        select2.addActionListener(this);
+        select3.addActionListener(this);
         //将菜单添加到菜单栏中
         menuBar.add(functionJMenu);
         menuBar.add(aboutJMenu);
@@ -262,7 +274,6 @@ public class GameJFrame extends JFrame implements KeyListener , ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object obj=e.getSource();
         if(obj==replayItem){
-
             initData(data);
             count=0;
             initImage(data);
@@ -271,7 +282,19 @@ public class GameJFrame extends JFrame implements KeyListener , ActionListener {
             new LoginJFrame();
         }else if(obj==closeItem){
              System.exit(0);
-        }else {
+        }else if(obj==select2){
+            // 随机选择动物图片集
+            int r=(int)(Math.random()*9+1);
+            path="image\\animal"+"\\animal"+r+"\\";
+            initData(data);
+            initImage(data);
+        }else if(obj==select3){
+            int r=(int)(Math.random()*10+1);
+            path="image\\sport\\"+"\\sport"+r+"\\";
+            initData(data);
+            initImage(data);
+        }
+        else {
              JLabel jLabel=new JLabel(new ImageIcon("image\\about.jpg"));
              //创建一个弹框
              JDialog jd=new JDialog();
