@@ -9,13 +9,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class LoginJFrame extends JFrame implements MouseListener {
-    static ArrayList<User> users = new ArrayList<>();
+import static UI.UserManage.users;
 
-    static {
-        users.add(new User("zhangsan", "123"));
-        users.add(new User("lisi", "1234"));
-    }
+public class LoginJFrame extends JFrame implements MouseListener {
+   // static ArrayList<User> users = new ArrayList<>();
+
+
 
     JButton login = new JButton();
     JButton register = new JButton();
@@ -27,7 +26,7 @@ public class LoginJFrame extends JFrame implements MouseListener {
 
     //正确的验证码
     JLabel rightCode = new JLabel();
-
+    JLabel eye;
 
     public LoginJFrame() {
         //初始化界面
@@ -105,151 +104,24 @@ public class LoginJFrame extends JFrame implements MouseListener {
         register.setIcon(new ImageIcon("image\\login\\注册按钮.png"));
         register.setBorderPainted(false);
         register.setContentAreaFilled(false);
-        register.addMouseListener(this);/*new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                register.setIcon(new ImageIcon("image\\login\\注册按下.png"));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                register.setIcon(new ImageIcon("image\\login\\注册按钮.png"));
-            }
-        });*/
+        register.addMouseListener(this);
         this.getContentPane().add(register);
 
+        //10.添加密码显示
+        eye = new JLabel(new ImageIcon("image/login/显示密码.png"));
+        eye.setBounds(410, 290, 30, 30);
+        this.getContentPane().add(eye);
+        eye.addMouseListener(this);
 
-        //10.添加背景图片
+        //11.添加背景图片
         JLabel background = new JLabel(new ImageIcon("image\\login\\background.png"));
         background.setBounds(25,20,508,560);
         this.getContentPane().add(background);
 
-        //11.设置界面宽高
+
+
 
     }
-
-    /*public void init() {
-        JLabel login = new JLabel(new ImageIcon("image\\login\\登录按钮.png"));
-        login.setBounds(200, 420, 200, 150);
-        this.getContentPane().add(login);
-        login.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                String username = usernameText.getText();
-                char[] passwordChars = passwordText.getPassword();
-                String password = new String(passwordChars);
-                String code = codeText.getText();
-                check(username, password, code);
-            }
-        });
-
-        JLabel username = new JLabel(new ImageIcon("image\\login\\用户名.png"));
-        username.setBounds(100, 200, 128, 47);
-        this.getContentPane().add(username);
-        usernameText = new JTextField();
-        usernameText.setBounds(205, 210, 200, 27);
-        this.getContentPane().add(usernameText);
-
-        JLabel password = new JLabel(new ImageIcon("image\\login\\密码.png"));
-        password.setBounds(100, 280, 128, 47);
-        this.getContentPane().add(password);
-        JPasswordField passwordText = new JPasswordField();
-        passwordText.setBounds(205, 290, 200, 27);
-        this.getContentPane().add(passwordText);
-        JLabel eye = new JLabel(new ImageIcon("image\\login\\显示密码.png"));
-        eye.setBounds(410, 290, 30, 27);
-        eye.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                eye.setIcon(new ImageIcon("image\\login\\显示密码按下.png"));
-                passwordText.setEchoChar((char) 0);
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                eye.setIcon(new ImageIcon("image\\login\\显示密码.png"));
-                passwordText.setEchoChar('•');
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-
-
-        });
-        this.getContentPane().add(eye);
-
-        JLabel code = new JLabel(new ImageIcon("image\\login\\验证码.png"));
-        code.setBounds(100, 350, 128, 47);
-        this.getContentPane().add(code);
-        codeText = new JTextField();
-        codeText.setBounds(205, 360, 100, 27);
-        this.getContentPane().add(codeText);
-
-        JLabel code1 = new JLabel();
-        code1.setBounds(330, 360, 100, 27);
-        this.getContentPane().add(code1);
-        code1.setText(Code.getCode());
-        code1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                code1.setText(Code.getCode());
-            }
-        });
-
-
-        JLabel background = new JLabel(new ImageIcon("image\\background.png"));
-        background.setBounds(40, 40, 508, 560);
-        this.getContentPane().add(background);
-        this.setVisible(true);
-
-    }
-
-    public void check(String username, char[] password, String code) {
-        if (username.equals("") || password.equals("")) {
-            JOptionPane.showMessageDialog(this, "用户名或密码不能为空");
-        }
-        else if (!username.matches("[a-zA-Z0-9]+")) {
-            JOptionPane.showMessageDialog(this, "用户名只能包含字母和数字");
-        }
-        //检查密码
-        else {
-            JOptionPane.showMessageDialog(this, "密码错误");
-        }
-        for (User user : users) {
-            //查找用户名是否已经存在
-            if (!username.equals(user.getUsername())) {
-                JOptionPane.showMessageDialog(this, "用户名不存在");
-            }
-            //检查密码
-            if (!password.equals(user.getPassword())) {
-                JOptionPane.showMessageDialog(this, "密码错误");
-            } else {
-                //检查验证码
-                if (code.equals(rightCode)) {
-                    JOptionPane.showMessageDialog(this, "登录成功");
-                    this.dispose();
-                    new GameJFrame();
-                } else {
-                    JOptionPane.showMessageDialog(this, "验证码错误");
-                }
-            }
-        }
-    }
-
-
-     */
     public void initJFrame() {
         this.setSize(583, 650);//设置宽高
         this.setTitle("拼图游戏 V1.0登录");//设置标题
@@ -259,19 +131,109 @@ public class LoginJFrame extends JFrame implements MouseListener {
         this.setLayout(null);//取消内部默认布局
     }
 
+
+
+
+
+
+
+
+
+
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
+        if (e.getSource() == login) {
+            String usernameInput = username.getText();
+            String passwordInput = new String(password.getPassword());
+            String codeInput = code.getText();
+            String rightCodeText = rightCode.getText();
+
+            //创建一个User对象
+            User userInfo = new User(usernameInput, passwordInput);
+
+            if (codeInput.length() == 0) {
+                show("验证码不能为空");
+
+            }
+            //校验用户名和密码是否为空
+            else if (usernameInput.length() == 0 || passwordInput.length() == 0) {
+                //调用showJDialog方法并展示弹框
+                show("用户名或者密码为空");
+
+
+            } else if (!codeInput.equalsIgnoreCase(rightCodeText)) {
+                show("验证码输入错误");
+            } else if (contains(userInfo)) {
+                this.setVisible(false);
+                new GameJFrame(usernameInput);
+            } else {
+                show("用户名或密码错误");
+            }
+        }
+    }
+    public boolean contains(User userInput){
+        for (int i = 0; i < users.size(); i++) {
+            User rightUser =users.get(i);
+            if(userInput.getUsername().equals(rightUser.getUsername()) && userInput.getPassword().equals(rightUser.getPassword())){
+                //有相同的代表存在，返回true，后面的不需要再比了
+                return true;
+            }
+        }
+        //循环结束之后还没有找到就表示不存在
+        return false;
+    }
+    public void show(String content) {
+        JOptionPane.showMessageDialog(this, content);
+
+        /*//创建一个弹框对象
+        JDialog jDialog = new JDialog();
+        //给弹框设置大小
+        jDialog.setSize(200, 150);
+        //让弹框置顶
+        jDialog.setAlwaysOnTop(true);
+        //让弹框居中
+        jDialog.setLocationRelativeTo(null);
+        //弹框不关闭永远无法操作下面的界面
+        jDialog.setModal(true);
+
+        //创建Jlabel对象管理文字并添加到弹框当中
+        JLabel warning = new JLabel(content);
+        warning.setBounds(0, 0, 200, 150);
+        jDialog.getContentPane().add(warning);
+
+        //让弹框展示出来
+        jDialog.setVisible(true);*/
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+     if(e.getSource()==login){
+         login.setIcon(new ImageIcon("image\\login\\登录按下.png"));
+     }
+     else if(e.getSource()==register){
+         register.setIcon(new ImageIcon("image\\login\\注册按下.png"));
+     }
+     if(e.getSource()==eye){
+         eye.setIcon(new ImageIcon("image/login/显示密码按下.png"));
+         password.setEchoChar((char) 0);
+     }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+     if(e.getSource()==login){
+         login.setIcon(new ImageIcon("image\\login\\登录按钮.png"));
+     }
+     else if(e.getSource()==register){
+         register.setIcon(new ImageIcon("image\\login\\注册按钮.png"));
+         new RegisterJFrame();
+         this.dispose();
+     }
+     if(e.getSource()==eye){
+         eye.setIcon(new ImageIcon("image/login/显示密码.png"));}
+         password.setEchoChar('•');
     }
 
     @Override

@@ -11,7 +11,7 @@ public class Code {
             code.add((char) ('a' + i));//a-z
         }
         Random r=new Random();
-        String result=" ";
+        String result="";
         for (int i = 0; i < 4; i++) {
 
             char c=code.get(r.nextInt(code.size()));

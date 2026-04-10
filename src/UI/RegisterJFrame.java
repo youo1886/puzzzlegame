@@ -85,12 +85,18 @@ public class RegisterJFrame extends JFrame implements MouseListener {
         Object obj=e.getSource();
         if(obj==register){
             register.setIcon(new ImageIcon("image\\register\\注册按钮.png"));
+            String username=usernameText.getText();
+            User user=new User(username,passwordText.getText());
+                if(contains(user)){
+                    JOptionPane.showMessageDialog(this,"用户已存在");
+                    return ;
+            }
             if(check(usernameText.getText(),passwordText.getText(),confirmText.getText())){
                 User newUser = new User(usernameText.getText(), passwordText.getText());
                 UserManage.userAdd(newUser);
                 JOptionPane.showMessageDialog(this,"注册成功");
                 this.dispose();
-                new MyJFrame();
+                new LoginJFrame();
             }
         }
     }
@@ -122,10 +128,22 @@ public class RegisterJFrame extends JFrame implements MouseListener {
             JOptionPane.showMessageDialog(this,"用户名只能包含字母和数字");
             return false;
         }
+        else if(password.length()<6){
+            JOptionPane.showMessageDialog(this,"密码长度不能小于6");
+            return false;
+        }
         else if(!password.equals(confirm)){
             JOptionPane.showMessageDialog(this,"密码不一致");
             return false;
         }
         return true;
+    }
+    public boolean contains(User user){
+        for(User u: UserManage.getUsers()){
+            if(u.getUsername().equals(user.getUsername())){
+                return true;
+            }
+        }
+        return false;
     }
 }

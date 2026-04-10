@@ -22,7 +22,7 @@ public class GameJFrame extends JFrame implements KeyListener , ActionListener {
     };
     //记录步数
     int count=0;
-    //创建条目对象
+    String username;
     JMenuItem replayItem=new JMenuItem("重新开始");
     JMenuItem reLoginItem=new JMenuItem("重新登录");
     JMenuItem closeItem=new JMenuItem("关闭游戏");
@@ -33,8 +33,9 @@ public class GameJFrame extends JFrame implements KeyListener , ActionListener {
     JMenuItem select3=new JMenuItem("运动");
     //记录路径
     String path="image\\animal\\animal9\\";
-    public GameJFrame(){
-        //初始化界面
+    
+    public GameJFrame(String username){
+        this.username = username;
         initJFrame();
         //初始化菜单栏
         JMenuBar menuBar = initJMenuBar();
@@ -73,8 +74,12 @@ public class GameJFrame extends JFrame implements KeyListener , ActionListener {
             winer.setBounds(203,283,197,73);
             this.getContentPane().add(winer);
         }
+
         JLabel steps=new JLabel("移动步数："+count);
+        JLabel user=new JLabel("用户："+username);
+        user.setBounds(30,10,500,20);
         steps.setBounds(30,30,100,20);
+        this.getContentPane().add(user);
         this.getContentPane().add(steps);
         //路径分为绝对路径和相对路径
         //绝对路径：D:\\javaexercise\\puzzlegame\\image\\background.png（从盘符开始）

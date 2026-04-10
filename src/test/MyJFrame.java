@@ -41,8 +41,11 @@ public class MyJFrame extends JFrame implements ActionListener {
         register.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new RegisterJFrame();
-                dispose();
+                SwingUtilities.invokeLater(() -> {
+                    new RegisterJFrame();
+                    dispose();
+                });
+
             }
         });
 
